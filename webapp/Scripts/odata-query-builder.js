@@ -2459,12 +2459,10 @@ OData.explorer.DataExplorer.prototype.getUrl = function() {
 };
 
 OData.explorer.DataExplorer.prototype.getUsername = function() {
-    this.$username.val('sfadmin@SFPART026094'); //testing only
     return this.$username.val();
 };
 
 OData.explorer.DataExplorer.prototype.getPassword = function() {
-    this.$password.val('part1711DC4'); //testing only
     return this.$password.val();
 };
 
