@@ -1,0 +1,46 @@
+<!--
+Copyright (c) Microsoft Corporation
+All rights reserved. 
+Licensed under the Apache License, Version 2.0 (the ""License""); you may not use this file except in compliance with 
+the License. You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0 
+
+THIS CODE IS PROVIDED ON AN *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, EITHER EXPRESS OR IMPLIED, 
+INCLUDING WITHOUT LIMITATION ANY IMPLIED WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE, 
+MERCHANTABLITY OR NON-INFRINGEMENT. 
+
+See the Apache Version 2.0 License for specific language governing permissions and limitations under the License.
+-->
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=10" />
+        <title>Generate Metadata from the Endpoint with DataJs</title>
+        <!-- Third party scripts or code, linked to or referenced from this web site, 
+            are licensed to you by the third parties that own such code, not by Microsoft. -->
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"> </script>
+        <script type="text/javascript" src="Scripts/datajs-1.1.1.min.js"> </script>
+
+        <script type="text/javascript">
+            $(function () {
+                var url = 'http://odataservices.azurewebsites.net/OData/OData.svc/';
+
+                OData.read(url + '$metadata', function (data) {
+                    var text = "var metadata = " + JSON.stringify(data) + ";";
+                    $("#title").append(': ' + url);
+                    $("#resultContainer").text(text);
+                }, function (err) {
+                    $("#resultContainer").css("color", "red").text(JSON.stringify(err));
+                }, OData.metadataHandler);
+            });
+        </script>
+    </head>
+<body>
+
+    <h1 id="title">datajs metadata</h1>
+    <p>This page shows how to obtain and embed metadata. View the source on this page for more information.</p>
+
+    <div id="resultContainer">Loading...</div>
+</body>
+</html>
+
