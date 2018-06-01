@@ -5,13 +5,22 @@
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "electron ."
+    "start": "electron .",
+    "build": "build"
   },
-  "author": "",
+  "build": {
+    "appId": "cloud-api-query",
+    "win": {
+      "target": "NSIS",
+      "icon": "assets/icon/windows/256x256.png"
+    }
+  },
+  "author": "intelligrate",
   "license": "ISC",
   "devDependencies": {
-    "electron": "^2.0.1",
-    "electron-packager": "^12.1.0"
+    "electron": "^2.0.2",
+    "electron-builder": "^20.14.7",
+    "electron-builder-squirrel-windows": "^20.14.6"
   },
   "dependencies": {
     "path": "^0.12.7"
