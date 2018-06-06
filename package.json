@@ -1,28 +1,39 @@
 {
   "name": "cloud-api-query",
-  "version": "1.0.0",
-  "description": "",
+  "version": "0.0.2",
+  "description": "Cloud API Query - alpha",
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "electron .",
-    "build": "build"
-  },
-  "build": {
-    "appId": "cloud-api-query",
-    "win": {
-      "target": "NSIS",
-      "icon": "assets/icon/windows/256x256.png"
-    }
+    "build": "build",
+    "publish": "build -p always"
   },
   "author": "intelligrate",
-  "license": "ISC",
+  "license": "GNU GPLV2 ",
   "devDependencies": {
     "electron": "^2.0.2",
     "electron-builder": "^20.14.7",
     "electron-builder-squirrel-windows": "^20.14.6"
   },
   "dependencies": {
+    "electron-in-page-search": "^1.3.2",
+    "electron-log": "^2.2.14",
+    "electron-updater": "^2.21.10",
     "path": "^0.12.7"
+  },
+  "build": {
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "intelligrate",
+        "repo": "query-cloud-api"
+      }
+    ],
+    "appId": "com.intelligrate.cloudapiquery",
+    "win": {
+      "target": "NSIS",
+      "icon": "assets/icon/windows/256x256.png"
+    }
   }
 }

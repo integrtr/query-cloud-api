@@ -2615,7 +2615,7 @@
   
                    if (this.status == 401) {
                         swal("Incorrect User/password", "Please provide valid username/password", "error");
-                        return;
+                        return false;
 
                     }
 
@@ -8294,8 +8294,14 @@
         request.headers = {};
 
         if (!window.localStorage.username || !window.localStorage.password) {
+            /*this piece of code is not killing the busy indicator
             swal("Missing User/password", "Please provide username/password", "error");
-            return;
+            return false;
+            */
+            //so, when we find the user/pass is empty, we just fill it with dummy, so that the other swal will take care of things.
+
+            window.localStorage.setItem('username','username' );
+            window.localStorage.setItem('password','password' );
         }
         request.headers.Authorization = "Basic " + window.btoa(window.localStorage.getItem('username') + ":" + window.localStorage.getItem('password'));
 

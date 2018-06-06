@@ -587,6 +587,7 @@ OData.explorer.QueryBuilder.prototype.initialize = function() {
             }, this),
             // Error callback.
             function(err) {
+                
                 var error = JSON.stringify(err);
                 deferred.reject(error);
             },
