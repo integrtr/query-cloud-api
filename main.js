@@ -5,14 +5,14 @@ const path = require('path');
 const nativeImage = require('electron').nativeImage;
 const log = require('electron-log');
 const { autoUpdater } = require("electron-updater");
-
 const searchInPage = require('electron-in-page-search').default;
-
+const keys = require('./keys_gitignored');
 
 autoUpdater.logger = log;
 autoUpdater.logger.transports.file.level = 'info';
 log.info('App starting...');
 
+// process.env['GH_TOKEN'] = keys.getPublishKey();
 
 let template = []
 if (process.platform === 'darwin') {
@@ -40,6 +40,8 @@ if (process.platform === 'darwin') {
                             aboutWin = null;
                         });
 
+                        aboutWin.setMenu(null);
+
                     })();
                 }
 
@@ -62,6 +64,9 @@ if (process.platform === 'darwin') {
                         eulaWin.on('closed', function() {
                             eulaWin = null;
                         });
+
+                        eulaWin.setMenu(null);
+
 
                     })();
                 }
@@ -146,6 +151,7 @@ if (process.platform === 'darwin') {
                             aboutWin = null;
                         });
 
+                        aboutWin.setMenu(null);
                     })();
                 }
 
@@ -168,7 +174,7 @@ if (process.platform === 'darwin') {
                         eulaWin.on('closed', function() {
                             eulaWin = null;
                         });
-
+eulaWin.setMenu(null);
                     })();
                 }
 
@@ -219,7 +225,7 @@ if (process.platform === 'darwin') {
         label: 'Find',
         submenu: [{
             label: 'Find',
-            accelerator: 'Command+F',
+            accelerator: 'Ctrl+F',
             click() {
                 let code = `search.openSearchWindow();`
                 mainWindow.webContents.executeJavaScript(code);
