@@ -253,6 +253,13 @@ app.on('ready', () => {
     if (process.env.ELECTRON_IN_PAGE_SEARCH_DEBUG) {
         mainWindow.webContents.openDevTools({ mode: 'detach' });
     }
+      const page = mainWindow.webContents;
+  
+  page.once('did-frame-finish-load', () => {
+    log.info('here')
+        autoUpdater.checkForUpdatesAndNotify();
+  })
+
 });
 
 
