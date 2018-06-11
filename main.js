@@ -1,15 +1,24 @@
 // main.js
 // const { app, BrowserWindow } = require('electron');
-const { app, BrowserWindow, Menu, protocol, ipcMain } = require('electron');
+const {
+    app,
+    BrowserWindow,
+    Menu,
+    protocol,
+    ipcMain
+} = require('electron');
 const path = require('path');
 const nativeImage = require('electron').nativeImage;
 const log = require('electron-log');
-const { autoUpdater } = require("electron-updater");
+const {
+    autoUpdater
+} = require("electron-updater");
+//const { appUpdater } = require('./autoupdater');
 const searchInPage = require('electron-in-page-search').default;
 const keys = require('./keys_gitignored');
 
-autoUpdater.logger = log;
-autoUpdater.logger.transports.file.level = 'info';
+// autoUpdater.logger = log;
+// autoUpdater.logger.transports.file.level = 'info';
 log.info('App starting...');
 
 // process.env['GH_TOKEN'] = keys.getPublishKey();
@@ -75,7 +84,9 @@ if (process.platform === 'darwin') {
             {
                 label: 'Quit',
                 accelerator: 'Command+Q',
-                click() { app.quit(); }
+                click() {
+                    app.quit();
+                }
             },
         ]
     }, {
@@ -152,6 +163,43 @@ if (process.platform === 'darwin') {
                         });
 
                         aboutWin.setMenu(null);
+
+                        const page = aboutWin.webContents;
+
+                        page.once('did-frame-finish-load', () => {
+                            autoUpdater.checkForUpdatesAndNotify();
+
+                        })
+
+                        function sendStatusToWindow(text) {
+                            log.info(text);
+                            aboutWin.webContents.send('message', text);
+                        }
+
+                        autoUpdater.on('checking-for-update', () => {
+                            sendStatusToWindow('Checking for update...');
+                        })
+                        autoUpdater.on('update-available', (info) => {
+                            sendStatusToWindow('Update available.');
+                        })
+                        autoUpdater.on('update-not-available', (info) => {
+                            sendStatusToWindow('Update not available.');
+                        })
+                        autoUpdater.on('error', (err) => {
+                            sendStatusToWindow('Error in auto-updater. ' + err);
+                        })
+                        autoUpdater.on('download-progress', (progressObj) => {
+                            let log_message = "Download speed: " + progressObj.bytesPerSecond;
+                            log_message = log_message + ' - Downloaded ' + progressObj.percent + '%';
+                            log_message = log_message + ' (' + progressObj.transferred + "/" + progressObj.total + ')';
+                            sendStatusToWindow(log_message);
+                        })
+                        autoUpdater.on('update-downloaded', (info) => {
+                            sendStatusToWindow('Update downloaded');
+                        });
+
+
+
                     })();
                 }
 
@@ -174,7 +222,7 @@ if (process.platform === 'darwin') {
                         eulaWin.on('closed', function() {
                             eulaWin = null;
                         });
-eulaWin.setMenu(null);
+                        eulaWin.setMenu(null);
                     })();
                 }
 
@@ -182,7 +230,9 @@ eulaWin.setMenu(null);
             {
                 label: 'Quit',
                 accelerator: 'Ctrl+Q',
-                click() { app.quit(); }
+                click() {
+                    app.quit();
+                }
             },
         ]
     }, {
@@ -251,45 +301,10 @@ app.on('ready', () => {
     });
     mainWindow.loadURL('file://' + __dirname + '/webapp/index.html');
     if (process.env.ELECTRON_IN_PAGE_SEARCH_DEBUG) {
-        mainWindow.webContents.openDevTools({ mode: 'detach' });
+        mainWindow.webContents.openDevTools({
+            mode: 'detach'
+        });
     }
-      const page = mainWindow.webContents;
-  
-  page.once('did-frame-finish-load', () => {
-    log.info('here')
-        autoUpdater.checkForUpdatesAndNotify();
-  })
-
-});
 
 
-
-
-autoUpdater.on('checking-for-update', () => {
-    sendStatusToWindow('Checking for update...');
-})
-autoUpdater.on('update-available', (info) => {
-    sendStatusToWindow('Update available.');
-})
-autoUpdater.on('update-not-available', (info) => {
-    sendStatusToWindow('Update not available.');
-})
-autoUpdater.on('error', (err) => {
-    sendStatusToWindow('Error in auto-updater. ' + err);
-})
-autoUpdater.on('download-progress', (progressObj) => {
-    let log_message = "Download speed: " + progressObj.bytesPerSecond;
-    log_message = log_message + ' - Downloaded ' + progressObj.percent + '%';
-    log_message = log_message + ' (' + progressObj.transferred + "/" + progressObj.total + ')';
-    sendStatusToWindow(log_message);
-})
-autoUpdater.on('update-downloaded', (info) => {
-    sendStatusToWindow('Update downloaded');
-});
-app.on('window-all-closed', () => {
-    app.quit();
-});
-
-app.on('ready', function() {
-    autoUpdater.checkForUpdatesAndNotify();
-});
+});D
