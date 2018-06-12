@@ -300,13 +300,17 @@ app.on('ready', () => {
         icon: appIcon
     });
     mainWindow.loadURL('file://' + __dirname + '/webapp/index.html');
-    
+
       if (process.env.ACTIVATE_DEBUG) {
             mainWindow.webContents.openDevTools({
                 mode: 'detach'
             });
        }
 
-autoUpdater.checkForUpdatesAndNotify();
+// autoUpdater.checkForUpdatesAndNotify();
 
 })
+
+app.on('ready', function()  {
+  autoUpdater.checkForUpdatesAndNotify();
+});
