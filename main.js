@@ -131,7 +131,7 @@ if (process.platform === 'darwin') {
             label: 'Find',
             accelerator: 'Command+F',
             click() {
-                let code = search.openSearchWindow();
+                let code = `search.openSearchWindow();`;
                 mainWindow.webContents.executeJavaScript(code);
 
             }
@@ -277,7 +277,7 @@ if (process.platform === 'darwin') {
             label: 'Find',
             accelerator: 'Ctrl+F',
             click() {
-                let code = search.openSearchWindow();
+                let code = `search.openSearchWindow();`;
                 mainWindow.webContents.executeJavaScript(code);
 
             }
@@ -300,11 +300,12 @@ app.on('ready', () => {
         icon: appIcon
     });
     mainWindow.loadURL('file://' + __dirname + '/webapp/index.html');
-    if (process.env.ELECTRON_IN_PAGE_SEARCH_DEBUG) {
-        mainWindow.webContents.openDevTools({
-            mode: 'detach'
-        });
-    }
+    
+      if (process.env.ACTIVATE_DEBUG) {
+            mainWindow.webContents.openDevTools({
+                mode: 'detach'
+            });
+       }
 
 autoUpdater.checkForUpdatesAndNotify();
 
