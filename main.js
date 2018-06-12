@@ -306,6 +306,6 @@ app.on('ready', () => {
         });
     }
 
-    autoUpdater.checkForUpdatesAndNotify();
+autoUpdater.checkForUpdatesAndNotify();
 
 })
