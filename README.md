@@ -34,5 +34,8 @@ Now, drill down further
 2. Query Cloud API (QCA) is not from SAP. I created this only to scratch my itch. But, because *Valar Dohaeris*, I open sourced it.
 3. You're free to use this software and use it as long as you abide by GNU GPL V3 and my EULA (https://github.com/intelligrate/query-cloud-api/blob/master/EULA.md).
 
+### Thanks to:
+Electron, NodeJs,JQuery,OData lib for JS and umpteen number of other open sources libraries that used for development, testing and publishing the app. 
+
 ### Bugs and feature requests:
 https://github.com/intelligrate/query-cloud-api/issues/new
