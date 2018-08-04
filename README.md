@@ -1,4 +1,4 @@
-# Query-Cloud-API (QCA) for SuccessFactors OData APIs (QCA for SF)
+# Query-Cloud-API (QCApi) for SuccessFactors OData APIs (QCA for SF)
 QCA is a query builder for SuccessFactors OData APIs. Although it's a generic query builder internally, QCA for SF will have a "citizen integration" flavor to it to let power users get their stuff done without getting into technical nitigrities. 
 Not so long ago, there's used to be fabulous set of tools called SFAPI tools.
 https://sfapitoolsflms.hana.ondemand.com/SFIntegration/sfapitools.jsp.
