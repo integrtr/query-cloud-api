@@ -2,3 +2,5 @@ dist/
 node_modules/
 package-lock.json
 keys_gitignored.js
+cloud-api-query-darwin-x64
+cloud-api-query-win32-x64
