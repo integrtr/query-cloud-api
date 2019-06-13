@@ -15,7 +15,7 @@ const {
 } = require("electron-updater");
 //const { appUpdater } = require('./autoupdater');
 const searchInPage = require('electron-in-page-search').default;
-const keys = require('./keys_gitignored');
+// const keys = require('./keys_gitignored');
 
 // autoUpdater.logger = log;
 // autoUpdater.logger.transports.file.level = 'info';
